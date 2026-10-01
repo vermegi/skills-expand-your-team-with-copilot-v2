@@ -660,7 +660,7 @@ document.addEventListener("DOMContentLoaded", () => {
     copyButton.setAttribute("aria-label", `Copy link to share ${name}`);
     copyButton.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(`${shareText} ${pageUrl}`);
+        await navigator.clipboard.writeText(pageUrl);
         showMessage("Link copied! You can now paste it to share.", "success");
       } catch (error) {
         showMessage("Could not copy the link. Please try again.", "error");
