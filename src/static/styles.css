@@ -32,6 +32,22 @@
   --info-light: #d1ecf1;
 }
 
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #121212;
+  --surface: #1e1e1e;
+  --text-primary: #f5f5f5;
+  --text-secondary: #bdbdbd;
+  --border: #424242;
+  --border-light: #333333;
+  --border-focus: #757575;
+  --primary-light: #7e8ce0;
+  --success-light: #1b3a20;
+  --warning-light: #4a3900;
+  --error-light: #4a1c1c;
+  --info-light: #163a40;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -682,6 +698,9 @@ footer {
   position: absolute;
   top: 10px;
   right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 #user-status {
@@ -715,6 +734,10 @@ footer {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+#theme-toggle {
+  white-space: nowrap;
+}
+
 .user-icon {
   font-size: 1rem;
 }
@@ -728,4 +751,9 @@ footer {
 
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+input {
+  background-color: var(--surface);
+  color: var(--text-primary);
 }
