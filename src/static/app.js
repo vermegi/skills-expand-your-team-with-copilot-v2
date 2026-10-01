@@ -587,7 +587,88 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    activityCard.appendChild(createShareButtons(name, details, formattedSchedule));
+
     activitiesList.appendChild(activityCard);
+  }
+
+  // Build the row of social sharing buttons for an activity
+  function createShareButtons(name, details, formattedSchedule) {
+    const pageUrl = window.location.href.split("#")[0];
+    const shareText = `Check out ${name} at Mergington High School! ${details.description} (${formattedSchedule})`;
+
+    const encodedUrl = encodeURIComponent(pageUrl);
+    const encodedText = encodeURIComponent(shareText);
+
+    const shareOptions = [
+      {
+        label: "Facebook",
+        icon: "f",
+        className: "share-facebook",
+        url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      },
+      {
+        label: "X (Twitter)",
+        icon: "𝕏",
+        className: "share-x",
+        url: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+      },
+      {
+        label: "WhatsApp",
+        icon: "💬",
+        className: "share-whatsapp",
+        url: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${pageUrl}`)}`,
+      },
+      {
+        label: "Email",
+        icon: "✉",
+        className: "share-email",
+        url: `mailto:?subject=${encodeURIComponent(
+          `Join me at ${name}!`
+        )}&body=${encodeURIComponent(`${shareText}\n\n${pageUrl}`)}`,
+      },
+    ];
+
+    const container = document.createElement("div");
+    container.className = "share-buttons";
+
+    const title = document.createElement("span");
+    title.className = "share-label";
+    title.textContent = "Share:";
+    container.appendChild(title);
+
+    shareOptions.forEach((option) => {
+      const link = document.createElement("a");
+      link.className = `share-button ${option.className}`;
+      link.href = option.url;
+      link.textContent = option.icon;
+      link.title = `Share on ${option.label}`;
+      link.setAttribute("aria-label", `Share ${name} on ${option.label}`);
+      if (!option.url.startsWith("mailto:")) {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
+      container.appendChild(link);
+    });
+
+    // Copy link button for sharing anywhere else
+    const copyButton = document.createElement("button");
+    copyButton.type = "button";
+    copyButton.className = "share-button share-copy";
+    copyButton.textContent = "🔗";
+    copyButton.title = "Copy link";
+    copyButton.setAttribute("aria-label", `Copy link to share ${name}`);
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pageUrl);
+        showMessage("Link copied! You can now paste it to share.", "success");
+      } catch (error) {
+        showMessage("Could not copy the link. Please try again.", "error");
+      }
+    });
+    container.appendChild(copyButton);
+
+    return container;
   }
 
   // Event listeners for search and filter
