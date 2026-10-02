@@ -29,10 +29,10 @@ jobs:
       - name: Run security reviewer
         env:
           # Use a fine-grained PAT with Copilot Requests permission, not GITHUB_TOKEN.
-          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN2 }}
         run: |
           if [ -z "$COPILOT_GITHUB_TOKEN" ]; then
-            echo "::error::Add the COPILOT_GITHUB_TOKEN repository secret with Copilot Requests permission."
+            echo "::error::Add the COPILOT_GITHUB_TOKEN2 repository secret with Copilot Requests permission."
             exit 1
           fi
 
